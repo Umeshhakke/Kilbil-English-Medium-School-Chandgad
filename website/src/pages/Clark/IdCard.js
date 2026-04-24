@@ -33,9 +33,8 @@ const IdCard = () => {
   const [previewHtml, setPreviewHtml] = useState("");
   const quillRef = useRef(null);
 
-  // 🆕 Photo upload state
-  const [selectedPhoto, setSelectedPhoto] = useState(null); // File object
-  const [photoPreviewUrl, setPhotoPreviewUrl] = useState(""); // local blob URL
+  // Photo upload state (only preview URL needed)
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState("");
 
   useEffect(() => {
     fetchTemplate();
@@ -105,18 +104,19 @@ const IdCard = () => {
     else setStudentData(null);
   };
 
-  // 🆕 Handle photo file selection
+  // Handle photo file selection
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedPhoto(file);
+      // Revoke previous URL to avoid memory leaks
+      if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
       setPhotoPreviewUrl(URL.createObjectURL(file));
     }
   };
 
-  // 🆕 Clear the selected photo
+  // Clear the selected photo
   const clearPhoto = () => {
-    setSelectedPhoto(null);
+    if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
     setPhotoPreviewUrl("");
   };
 

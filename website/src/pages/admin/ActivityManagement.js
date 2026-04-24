@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import ActivityForm from './ActivityForm';
 import './ActivityManagement.css';
@@ -12,7 +12,7 @@ const ActivityManagement = () => {
   const [editingActivity, setEditingActivity] = useState(null);
   const token = localStorage.getItem('adminToken');
 
-  const fetchActivities = async () => {
+  const fetchActivities = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/activities`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -23,11 +23,11 @@ const ActivityManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchActivities();
-  }, []);
+  }, [fetchActivities]);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this activity?')) return;

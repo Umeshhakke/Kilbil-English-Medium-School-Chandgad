@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import "./LeavingCertificate.css";
 
@@ -24,11 +24,7 @@ const LeavingCertificate = () => {
   const previewRef = useRef(null);
   const token = localStorage.getItem("clerkToken");
 
-  useEffect(() => {
-    fetchStudents();
-  }, []);
-
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/clerk/students`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -37,7 +33,11 @@ const LeavingCertificate = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, [fetchStudents]);
 
   const handleStudentSelect = async (e) => {
     const sid = e.target.value;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./Enrollment.css";
 
@@ -45,7 +45,7 @@ const Enrollment = () => {
 
   const token = localStorage.getItem("clerkToken");
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/clerk/students`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -56,11 +56,11 @@ const Enrollment = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [fetchStudents]);
 
   const handleEdit = (student) => {
     setEditingStudent(student);

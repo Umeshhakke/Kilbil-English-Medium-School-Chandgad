@@ -1,10 +1,9 @@
 import React from "react";
 import { NavLink, useNavigate, Outlet } from "react-router-dom";
 import "../styles/AdminDashboard.css";
-import TeacherAssignment from './admin/TeacherAssignment';
 
 // Import icons from react-icons
-import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope , FaChalkboardTeacher, FaMoneyBillWave  } from "react-icons/fa";
+import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope, FaChalkboardTeacher, FaMoneyBillWave } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -22,7 +21,6 @@ const AdminDashboard = () => {
           <h2>Kilbil Admin</h2>
         </div>
         <nav className="sidebar-nav">
-          
           <NavLink to="staff" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
             <span className="nav-icon"><FaUsers /></span>
             <span>Staff Management</span>
@@ -44,13 +42,13 @@ const AdminDashboard = () => {
             <span>Messages</span>
           </NavLink>
           <NavLink to="teachers" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
-          <span className="nav-icon"><FaChalkboardTeacher /></span>
-          <span>Teachers</span>
-        </NavLink>
-        <NavLink to="fee-structure" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
-          <span className="nav-icon"><FaMoneyBillWave /></span>
-          <span>Fee Structure</span>
-        </NavLink>
+            <span className="nav-icon"><FaChalkboardTeacher /></span>
+            <span>Teachers</span>
+          </NavLink>
+          <NavLink to="fee-structure" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
+            <span className="nav-icon"><FaMoneyBillWave /></span>
+            <span>Fee Structure</span>
+          </NavLink>
         </nav>
         <button onClick={handleLogout} className="logout-btn">
           <span><FaUsers style={{ marginRight: '8px' }} /></span> Logout

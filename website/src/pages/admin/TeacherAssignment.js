@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import AssignmentForm from './AssignmentForm';
 import './TeacherAssignment.css';
@@ -13,7 +13,7 @@ const TeacherAssignment = () => {
   const [editingAssignment, setEditingAssignment] = useState(null);
   const token = localStorage.getItem('adminToken');
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [assignRes, staffRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/api/teacher-assignments`, {
@@ -37,11 +37,11 @@ const TeacherAssignment = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this assignment?')) return;

@@ -1,5 +1,5 @@
 // src/pages/admin/EnquiryManagement.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import './EnquiryManagement.css';
 
@@ -10,7 +10,7 @@ const EnquiryManagement = () => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('adminToken');
 
-  const fetchEnquiries = async () => {
+  const fetchEnquiries = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/enquiries`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -21,11 +21,11 @@ const EnquiryManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchEnquiries();
-  }, []);
+  }, [fetchEnquiries]);
 
   const handleStatusChange = async (id, newStatus) => {
     try {

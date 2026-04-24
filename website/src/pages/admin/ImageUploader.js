@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -9,18 +9,18 @@ const ImageUploader = ({ eventId, token, onUploadComplete }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/gallery/events/${eventId}/images`);
       setImages(res.data);
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [eventId]);
 
   useEffect(() => {
     fetchImages();
-  }, [eventId]);
+  }, [fetchImages]);
 
   const handleFileSelect = (e) => {
     const files = Array.from(e.target.files);
@@ -44,6 +44,9 @@ const ImageUploader = ({ eventId, token, onUploadComplete }) => {
       });
       setSelectedFiles([]);
       setPreviewUrls([]);
+      // Clean up preview URLs to avoid memory leaks
+      previewUrls.forEach(url => URL.revokeObjectURL(url));
+      setPreviewUrls([]);
       fetchImages();
       if (onUploadComplete) onUploadComplete();
     } catch (err) {
@@ -64,6 +67,13 @@ const ImageUploader = ({ eventId, token, onUploadComplete }) => {
       alert('Failed to delete image');
     }
   };
+
+  // Cleanup preview URLs on unmount
+  useEffect(() => {
+    return () => {
+      previewUrls.forEach(url => URL.revokeObjectURL(url));
+    };
+  }, [previewUrls]);
 
   return (
     <div className="image-uploader">

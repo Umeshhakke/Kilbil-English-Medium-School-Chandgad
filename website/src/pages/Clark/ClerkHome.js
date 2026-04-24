@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ClerkHome.css";
@@ -26,11 +26,7 @@ const ClerkHome = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("clerkToken");
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  const fetchDashboardData = async () => {
+  const fetchDashboardData = useCallback(async () => {
     try {
       const headers = { Authorization: `Bearer ${token}` };
 
@@ -63,7 +59,11 @@ const ClerkHome = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]); // token is dependency
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
 
   const formatCurrency = (amount) => `₹${amount.toLocaleString('en-IN')}`;
 

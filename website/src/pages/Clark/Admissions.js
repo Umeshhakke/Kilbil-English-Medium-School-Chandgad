@@ -107,7 +107,7 @@ const Admissions = () => {
 
     try {
       // Placeholder API call – will be implemented in backend
-      const res = await axios.post(`${API_BASE}/api/clerk/admissions`, payload, {
+      await axios.post(`${API_BASE}/api/clerk/admissions`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem("clerkToken")}` },
       });
       console.log("Admission payload:", payload);

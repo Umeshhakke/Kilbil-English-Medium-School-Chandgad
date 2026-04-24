@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./Donations.css";
 
@@ -17,7 +17,7 @@ const Donations = () => {
   });
   const token = localStorage.getItem("clerkToken");
 
-  const fetchDonations = async () => {
+  const fetchDonations = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/clerk/donations`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -28,11 +28,11 @@ const Donations = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchDonations();
-  }, []);
+  }, [fetchDonations]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaCheckCircle, FaUsers, FaChartBar, FaCalendarAlt } from 'react-icons/fa';
@@ -8,7 +8,6 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const ClassTeacherDashboard = () => {
   const [teacher, setTeacher] = useState(null);
-  const [allAssignments, setAllAssignments] = useState([]);
   const [classTeacherClasses, setClassTeacherClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState('');
   const [students, setStudents] = useState([]);
@@ -18,7 +17,6 @@ const ClassTeacherDashboard = () => {
   const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().slice(0, 10));
   const [attendanceList, setAttendanceList] = useState([]);
   const [activeSection, setActiveSection] = useState('overview');
-  const [debugMode, setDebugMode] = useState(false);
   const navigate = useNavigate();
 
   // Add Student modal state
@@ -46,19 +44,12 @@ const ClassTeacherDashboard = () => {
   });
   const [editStudentError, setEditStudentError] = useState('');
 
-  useEffect(() => {
-    const teacherData = JSON.parse(localStorage.getItem('teacherData') || '{}');
-    setTeacher(teacherData);
-    fetchClassTeacherClasses();
-  }, []);
-
-  const fetchClassTeacherClasses = async () => {
+  const fetchClassTeacherClasses = useCallback(async () => {
     try {
       const token = localStorage.getItem('teacherToken');
       const res = await axios.get(`${API_BASE_URL}/api/teacher-assignments/my-assignments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setAllAssignments(res.data);
       const ctClasses = res.data.filter(a => a.isClassTeacher === true).map(a => a.class);
       setClassTeacherClasses([...new Set(ctClasses)]);
       if (ctClasses.length > 0) {
@@ -73,7 +64,13 @@ const ClassTeacherDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []); // No external dependencies
+
+  useEffect(() => {
+    const teacherData = JSON.parse(localStorage.getItem('teacherData') || '{}');
+    setTeacher(teacherData);
+    fetchClassTeacherClasses();
+  }, [fetchClassTeacherClasses]);
 
   const fetchStudents = async (className) => {
     try {
@@ -116,7 +113,7 @@ const ClassTeacherDashboard = () => {
     }
   };
 
-  // 🆕 Edit student handler
+  // Edit student handler
   const handleEditStudent = (student) => {
     setEditingStudent(student);
     setEditForm({
@@ -151,7 +148,7 @@ const ClassTeacherDashboard = () => {
     }
   };
 
-  // Delete student (unchanged)
+  // Delete student
   const handleDeleteStudent = async (studentId) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
       try {

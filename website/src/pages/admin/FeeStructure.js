@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./FeeStructure.css";
 
@@ -18,11 +18,7 @@ const FeeStructure = () => {
   const [saving, setSaving] = useState(false);
   const token = localStorage.getItem("adminToken");
 
-  useEffect(() => {
-    fetchFeeStructure();
-  }, []);
-
-  const fetchFeeStructure = async () => {
+  const fetchFeeStructure = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/admin/fee-structure`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -35,7 +31,11 @@ const FeeStructure = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
+
+  useEffect(() => {
+    fetchFeeStructure();
+  }, [fetchFeeStructure]);
 
   const handleChange = (cls, value) => {
     setFees(prev => ({ ...prev, [cls]: parseInt(value) || 0 }));
