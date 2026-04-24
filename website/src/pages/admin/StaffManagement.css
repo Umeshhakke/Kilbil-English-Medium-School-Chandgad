@@ -1,0 +1,160 @@
+/* ===== Page Layout ===== */
+.staff-management {
+  padding: 24px;
+  background: #f1f5f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ===== Header ===== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  color: #0f172a;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* ===== Add Button ===== */
+.add-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* ===== Table Container ===== */
+.staff-table-container {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 8px;
+}
+
+/* ===== Table ===== */
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+/* ===== Table Head ===== */
+.staff-table th {
+  background: #f8fafc;
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* ===== Table Cells ===== */
+.staff-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+/* ===== Row Hover Effect ===== */
+.staff-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* ===== Staff Image ===== */
+.staff-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+/* ===== Actions Column ===== */
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  z-index: 5; /* prevents overlap issues */
+}
+
+/* ===== Buttons (Common Style) ===== */
+.actions button {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  min-width: 75px;
+  transition: 0.2s ease;
+}
+
+/* ===== Edit Button ===== */
+.edit-btn {
+  background: #eab308;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #ca8a04;
+  transform: translateY(-1px);
+}
+
+/* ===== Delete Button ===== */
+.delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* ===== Loading State ===== */
+.loading {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.2rem;
+  color: #475569;
+}
+
+/* ===== Error Banner ===== */
+.error-banner {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .staff-table {
+    min-width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

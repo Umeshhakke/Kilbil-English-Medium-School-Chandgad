@@ -1,0 +1,103 @@
+.fab-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+/* OPTIONS */
+.fab-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.fab-options.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ICON BUTTONS */
+.fab-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.fab-icon:hover {
+  transform: scale(1.1);
+}
+
+/* COLORS */
+.phone {
+  background: #2563eb;
+}
+
+.whatsapp {
+  background: #25d366;
+}
+
+.email {
+  background: #ef4444;
+}
+
+/* MAIN BUTTON (FIXED) */
+.fab-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 20px;
+  height: 55px;
+  min-width: 150px;
+
+  border-radius: 30px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  border: none;
+
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+.fab-main:hover {
+  transform: scale(1.05);
+}
+
+.fab-main.active {
+  background: #ef4444;
+}
+
+/* ICON SIZE */
+.fab-main svg {
+  font-size: 18px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .fab-main {
+    min-width: 130px;
+    height: 50px;
+  }
+}

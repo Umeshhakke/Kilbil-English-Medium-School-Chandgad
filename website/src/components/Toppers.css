@@ -1,0 +1,117 @@
+/* SECTION */
+.toppers {
+  padding: 60px 10%;
+  background: #f8fafc; /* soft premium bg */
+  text-align: center;
+}
+
+.toppers h2 {
+  font-size: 2rem;
+  margin-bottom: 50px;
+  color: #1e293b; /* dark slate */
+}
+
+/* SECTION */
+.toppers-section {
+  margin-bottom: 60px;
+}
+
+.toppers-section h3 {
+  margin-bottom: 25px;
+  color: #334155;
+}
+
+/* CONTAINER */
+.toppers-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+/* CARD BASE */
+.topper-card {
+  background: white;
+  border-radius: 16px;
+  padding: 15px;
+  width: 190px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  position: relative;
+  border: 1px solid #e2e8f0;
+}
+
+.topper-card:hover {
+  transform: translateY(-8px);
+}
+
+/* IMAGE */
+.topper-card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* INFO */
+.topper-info {
+  margin-top: 12px;
+}
+
+.topper-info h4 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #0f172a;
+}
+
+.topper-info p {
+  font-weight: 600;
+  color: #475569;
+}
+
+/* BADGE */
+.rank-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+
+/* 🥇 GOLD (premium subtle) */
+.topper-card.gold {
+  transform: scale(1.12);
+  border: 1px solid #e6c200;
+  box-shadow: 0 10px 30px rgba(230, 194, 0, 0.25);
+}
+
+/* 🥈 SILVER */
+.topper-card.silver {
+  border: 1px solid #cbd5e1;
+}
+
+/* 🥉 BRONZE */
+.topper-card.bronze {
+  border: 1px solid #d6a77a;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .toppers {
+    padding: 40px 20px;
+  }
+
+  .toppers-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .topper-card.gold {
+    transform: scale(1.05);
+  }
+}

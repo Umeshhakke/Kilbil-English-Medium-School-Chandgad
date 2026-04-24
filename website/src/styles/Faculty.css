@@ -1,0 +1,250 @@
+/* GLOBAL */
+.faculty-page {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+/* NAVBAR handled separately */
+
+/* HERO */
+.faculty-hero {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-attachment: fixed;
+    background-image: linear-gradient(to bottom, #ffffffcc, #ffffffee),
+                      url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+}
+
+.hero-inner h1 {
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.hero-inner span {
+    color: #6366f1;
+}
+
+.hero-tag {
+    letter-spacing: 3px;
+    font-size: 0.7rem;
+    color: #6366f1;
+    font-weight: 700;
+}
+
+.hero-inner p {
+    color: #64748b;
+}
+
+/* CONTAINER */
+.faculty-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+/* SECTION */
+.faculty-section {
+    margin-bottom: 80px;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+    margin-left: 15px;
+}
+
+/* LEADERSHIP */
+.leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.leader-card {
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: 0.3s;
+}
+
+.leader-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.leader-img {
+    width: 180px;
+}
+
+.leader-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.leader-card:hover img {
+    transform: scale(1.05);
+}
+
+.leader-info {
+    padding: 20px;
+}
+
+.role {
+    font-weight: 600;
+}
+
+.edu {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* FACULTY GRID */
+.faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.faculty-card {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    transition: 0.4s;
+    transform-style: preserve-3d;
+}
+
+/* 3D hover */
+.faculty-card:hover {
+    transform: rotateY(6deg) rotateX(6deg) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* glow */
+.faculty-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(120deg, transparent, rgba(99,102,241,0.2), transparent);
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.faculty-card:hover::before {
+    opacity: 1;
+}
+
+/* AVATAR */
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* TEXT */
+.designation {
+    color: #6366f1;
+    font-weight: 600;
+}
+
+.edu-tag {
+    font-size: 0.75rem;
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+/* SCROLL ANIMATION */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .leadership-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .leader-card {
+        flex-direction: column;
+    }
+
+    .leader-img {
+        width: 100%;
+        height: 200px;
+    }
+}
+/* Loading & Error States */
+.loading-container,
+.error-container,
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #6366f1;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-container h2 {
+  color: #d32f2f;
+  margin-bottom: 1rem;
+}
+
+.no-data-container {
+  color: #64748b;
+  font-size: 1.2rem;
+}

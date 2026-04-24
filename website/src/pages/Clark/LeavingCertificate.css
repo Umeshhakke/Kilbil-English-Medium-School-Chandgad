@@ -1,0 +1,119 @@
+.lc-container .additional-fields {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  border: 1px solid #eef2f6;
+}
+
+.lc-preview-section {
+  margin-top: 30px;
+}
+
+.lc-certificate {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  padding: 15mm;
+  margin: 20px auto;
+  border: 2px solid #000;
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.lc-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.lc-header h2 {
+  margin: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.lc-header p {
+  margin: 2px 0;
+}
+.lc-subtitle {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.lc-school-info {
+  border: 1px solid #000;
+  padding: 8px 12px;
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.lc-main-title {
+  text-align: center;
+  font-size: 18px;
+  margin: 15px 0 0;
+}
+
+.lc-original {
+  text-align: center;
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.lc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+.lc-table td {
+  border: 1px solid #000;
+  padding: 4px 8px;
+}
+.lc-table td:first-child {
+  font-weight: bold;
+  width: 30%;
+}
+
+.lc-certification {
+  margin: 15px 0;
+  font-style: italic;
+}
+
+.lc-signatures {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 40px;
+}
+.signatories {
+  display: flex;
+  gap: 40px;
+}
+.signatories div {
+  text-decoration: overline;
+  padding-top: 10px;
+}
+
+.lc-note {
+  margin-top: 20px;
+  font-size: 11px;
+  text-align: center;
+  border-top: 1px solid #000;
+  padding-top: 8px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .lc-certificate, .lc-certificate * {
+    visibility: visible;
+  }
+  .lc-certificate {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    border: none;
+  }
+}

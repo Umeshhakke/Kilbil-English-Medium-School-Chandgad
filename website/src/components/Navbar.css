@@ -1,0 +1,207 @@
+/* ================= RESET & BASE ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #3F3D8F;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+  position: relative; /* needed for absolute mobile menu */
+}
+
+.navbar.scrolled {
+  background: #2f2d75;
+  padding: 5px 0;
+}
+
+/* ================= CONTAINER ================= */
+.nav-container {
+  max-width: 95%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left, center, right */
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+}
+
+/* ================= LEFT SECTION ================= */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* logo: hidden by default, appears on scroll */
+.nav-brand {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.navbar.scrolled .nav-brand {
+  display: flex;
+}
+
+.nav-brand img {
+  height: 35px;
+}
+
+.nav-brand span {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ================= CENTER LINKS ================= */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  padding: 5px 0;
+  white-space: nowrap;
+}
+
+/* underline animation */
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background: #FFD700;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* ================= RIGHT BUTTON ================= */
+.nav-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-btn a {
+  background: white;
+  color: #3F3D8F;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.nav-btn a:hover {
+  background: #FFD700;
+  color: black;
+  transform: translateY(-1px);
+}
+
+/* ================= HAMBURGER ================= */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    gap: 0;
+  }
+
+  /* show hamburger */
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  /* adjust logo size when scrolled */
+  .nav-brand img {
+    height: 28px;
+  }
+  .nav-brand span {
+    font-size: 12px;
+  }
+
+  /* mobile menu: absolute below navbar */
+  .nav-links {
+    position: absolute;
+    top: 100%; /* sticks right under navbar */
+    left: 0;
+    width: 100%;
+    background: #3F3D8F;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li a {
+    font-size: 16px;
+  }
+
+  /* hide desktop button */
+  .nav-btn {
+    display: none;
+  }
+
+  /* ensure left section uses available space */
+  .nav-left {
+    flex: 1;
+  }
+}

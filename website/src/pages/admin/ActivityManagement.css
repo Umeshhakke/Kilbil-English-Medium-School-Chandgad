@@ -1,0 +1,55 @@
+/* ActivityManagement.css */
+.activity-management {
+  padding: 20px;
+}
+.activities-table-container {
+  background: white;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.activities-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.activities-table th {
+  background: #f8fafc;
+  padding: 16px;
+  text-align: left;
+}
+.activities-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.activity-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.toggle-btn {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: none;
+  background: #cbd5e1;
+  cursor: pointer;
+  font-weight: 600;
+}
+.toggle-btn.active {
+  background: #10b981;
+  color: white;
+}
+.actions button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.actions button:first-child {
+  background: #eab308;
+  color: white;
+}
+.actions button:last-child {
+  background: #dc2626;
+  color: white;
+}

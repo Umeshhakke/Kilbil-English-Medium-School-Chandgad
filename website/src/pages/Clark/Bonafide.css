@@ -1,0 +1,53 @@
+.bonafide-container .section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 30px;
+  border: 1px solid #eef2f6;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+}
+
+.bonafide-container .quill {
+  margin-bottom: 20px;
+}
+
+.ql-editor {
+  min-height: 200px;
+  font-size: 0.95rem;
+}
+
+.preview-box {
+  margin-top: 24px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.cert-preview {
+  border: 1px solid #cbd5e1;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  min-height: 300px;
+}
+
+/* Reasonable print styling */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .cert-preview, .cert-preview * {
+    visibility: visible;
+  }
+  .cert-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
