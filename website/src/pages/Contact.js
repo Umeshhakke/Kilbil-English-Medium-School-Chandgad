@@ -16,6 +16,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
+const BASE_URL = process.env.REACT_APP_API_URL;
 
   const [status, setStatus] = useState("");
 
@@ -32,7 +33,7 @@ export default function Contact() {
     setStatus("loading");
 
     try {
-      await axios.post("http://localhost:5000/api/contact", form);
+      await axios.post(`${API_BASE_URL}/api/contact`, form);
       setStatus("success");
       setForm({ name: "", phone: "", email: "", message: "" });
 

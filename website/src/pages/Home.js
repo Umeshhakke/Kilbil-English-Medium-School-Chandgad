@@ -11,7 +11,7 @@ import AnnouncementBar from '../components/AnnouncementBar';
 import popupFallbackImg from '../assets/Admission.jpeg';
 import '../styles/Home.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL ;
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);

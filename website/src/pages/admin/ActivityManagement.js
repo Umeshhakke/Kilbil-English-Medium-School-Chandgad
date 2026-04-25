@@ -3,7 +3,7 @@ import axios from 'axios';
 import ActivityForm from './ActivityForm';
 import './ActivityManagement.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL ;
 
 const ActivityManagement = () => {
   const [activities, setActivities] = useState([]);
