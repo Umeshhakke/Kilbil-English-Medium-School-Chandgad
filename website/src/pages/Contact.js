@@ -16,7 +16,7 @@ export default function Contact() {
     email: "",
     message: "",
   });
-const BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const [status, setStatus] = useState("");
 
