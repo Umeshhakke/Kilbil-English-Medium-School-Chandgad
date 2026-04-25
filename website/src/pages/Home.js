@@ -11,7 +11,7 @@ import AnnouncementBar from '../components/AnnouncementBar';
 import popupFallbackImg from '../assets/Admission.jpeg';
 import '../styles/Home.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL ;
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
@@ -31,20 +31,33 @@ export default function Home() {
         if (popup) setShowPopup(true);
       } catch (err) {
         console.error('Failed to fetch activities:', err);
-        setShowPopup(true); // fallback to default popup
+        setShowPopup(true);
       }
     };
     fetchActivities();
   }, []);
 
-  const popupImage = popupActivity?.image || popupFallbackImg;
+  // Helper to build correct image URL
+  const getFullImageUrl = (imagePath) => {
+    if (!imagePath) return popupFallbackImg;
+    // If absolute URL, replace localhost with live domain
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath.replace('http://localhost:5000', API_BASE_URL);
+    }
+    // If relative, prepend API_BASE_URL
+    if (imagePath.startsWith('/')) {
+      return `${API_BASE_URL}${imagePath}`;
+    }
+    return `${API_BASE_URL}/${imagePath}`;
+  };
+
+  const popupImage = getFullImageUrl(popupActivity?.image);
   const popupTitle = popupActivity?.title;
   const popupDesc = popupActivity?.description;
   const popupLink = popupActivity?.link;
 
   return (
     <div className="home-page">
-      {/* Popup Modal - positioned fixed, independent of page flow */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-box">
@@ -64,10 +77,7 @@ export default function Home() {
 
       <Header />
       <Navbar />
-      
-      {/* 🔔 Announcement Bar placed exactly below Navbar */}
       <AnnouncementBar announcements={announcements} />
-      
       <Hero />
       <About />
       <Highlights />
