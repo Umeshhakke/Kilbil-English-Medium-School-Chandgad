@@ -3,14 +3,19 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 
-import { FaHome, FaInfoCircle, FaUserGraduate } from "react-icons/fa";
+import {
+  FaHome,
+  FaInfoCircle,
+  FaUserGraduate,
+  FaBars,
+  FaTimes
+} from "react-icons/fa";
 import { MdSchool, MdPhotoLibrary, MdContactPhone } from "react-icons/md";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 80);
@@ -24,7 +29,15 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
 
-        {/* LEFT: LOGO (ONLY AFTER SCROLL) */}
+        {/* LEFT: Hamburger */}
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {/* CENTER: Logo (ONLY on scroll) */}
         <div className="nav-left">
           {scrolled && (
             <div className="nav-brand">
@@ -34,27 +47,18 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* HAMBURGER */}
-        <button 
-          className="menu-toggle"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-
-        {/* CENTER LINKS */}
+        {/* NAV LINKS */}
         <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
-          <li><Link to="/"><FaHome /> Home</Link></li>
-          <li><Link to="/about"><FaInfoCircle /> About</Link></li>
-          <li><Link to="/admission"><FaUserGraduate /> Admissions</Link></li>
-          <li><Link to="/facilities"><MdSchool /> Facilities</Link></li>
-          <li><Link to="/gallery"><MdPhotoLibrary /> Gallery</Link></li>
-          <li><Link to="/Faculty"><MdContactPhone /> Faculty</Link></li>
-          <li><Link to="/contact"><MdContactPhone /> Contact</Link></li>
-          
+          <li><Link to="/" onClick={()=>setMenuOpen(false)}><FaHome /> Home</Link></li>
+          <li><Link to="/about" onClick={()=>setMenuOpen(false)}><FaInfoCircle /> About</Link></li>
+          <li><Link to="/admission" onClick={()=>setMenuOpen(false)}><FaUserGraduate /> Admissions</Link></li>
+          <li><Link to="/facilities" onClick={()=>setMenuOpen(false)}><MdSchool /> Facilities</Link></li>
+          <li><Link to="/gallery" onClick={()=>setMenuOpen(false)}><MdPhotoLibrary /> Gallery</Link></li>
+          <li><Link to="/faculty" onClick={()=>setMenuOpen(false)}><MdContactPhone /> Faculty</Link></li>
+          <li><Link to="/contact" onClick={()=>setMenuOpen(false)}><MdContactPhone /> Contact</Link></li>
         </ul>
 
-        {/* RIGHT BUTTON */}
+        {/* RIGHT: Apply Button */}
         <div className="nav-btn">
           <Link to="/admin/login">Apply Now</Link>
         </div>

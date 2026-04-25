@@ -15,6 +15,7 @@
   gap: 18px;
   padding: 15px 20px;
   justify-content: center;
+  position: relative;  /* needed for absolute positioning of login links */
 }
 
 /* logo */
@@ -43,7 +44,7 @@
   font-size: 24px;
   font-weight: 600;
   color: #2c3e50;
-  font-family: 'Playfair Display', serif; /* 👈 premium font */
+  font-family: 'Playfair Display', serif;
 }
 
 /* subtitle */
@@ -62,25 +63,21 @@
   color: #888;
   font-family: 'Poppins', sans-serif;
 }
-/* Keep your existing .header-container styles, just add position: relative */
-.header-container {
-  position: relative;  /* 👈 Add this line */
-  /* keep everything else: max-width, margin, display, gap, padding, justify-content: center */
-}
 
-/* Login links positioned at top-right corner */
+/* Login links at bottom-right corner */
 .login-links {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  bottom: 15px;
+  right: 0;
   display: flex;
   gap: 8px;
   font-size: 0.85rem;
-  background: rgba(248, 249, 250, 0.9);
+  background: rgba(248, 249, 250, 0.95);
   padding: 5px 12px;
   border-radius: 20px;
   font-family: 'Poppins', sans-serif;
   z-index: 10;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .login-links a {
@@ -100,12 +97,50 @@
   margin: 0 2px;
 }
 
-/* On small screens, adjust position so it doesn't overlap logo */
+/* Responsive: tablets */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 12px 16px;
+  }
+  .login-links {
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Responsive: small phones */
 @media (max-width: 600px) {
   .login-links {
-    top: 5px;
+    bottom: 8px;
     right: 10px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     padding: 3px 8px;
+    gap: 5px;
+  }
+  .logo-section img {
+    height: 50px;
+  }
+  .school-info h1 {
+    font-size: 18px;
+  }
+  .school-info h2 {
+    font-size: 12px;
+  }
+}
+
+/* Extra small devices (under 450px) */
+@media (max-width: 450px) {
+  .login-links {
+    bottom: -10px;
+    right: 8px;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    gap: 4px;
+    z-index: 10000;
+  }
+  .header-container {
+    padding: 10px 12px;
   }
 }

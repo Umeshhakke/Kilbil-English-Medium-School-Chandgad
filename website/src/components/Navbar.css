@@ -1,58 +1,53 @@
-/* ================= RESET & BASE ================= */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
   background: #3F3D8F;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: 0.3s ease;
-  position: relative; /* needed for absolute mobile menu */
+  transition: all 0.3s ease;
+  padding: 10px 0;
 }
 
 .navbar.scrolled {
   background: #2f2d75;
-  padding: 5px 0;
+  padding: 6px 0;
 }
 
-/* ================= CONTAINER ================= */
+/* CONTAINER */
 .nav-container {
   max-width: 95%;
   margin: auto;
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* left, center, right */
+  display: flex; /* 🔥 important fix */
   align-items: center;
-  gap: 20px;
-  padding: 10px 20px;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
-/* ================= LEFT SECTION ================= */
+/* LEFT SECTION */
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  flex: 1;
 }
 
-/* logo: hidden by default, appears on scroll */
+/* LOGO */
 .nav-brand {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
   animation: fadeIn 0.3s ease-in-out;
 }
 
-.navbar.scrolled .nav-brand {
-  display: flex;
-}
-
 .nav-brand img {
-  height: 35px;
+  height: 30px;
 }
 
 .nav-brand span {
@@ -61,38 +56,34 @@
   font-weight: 600;
 }
 
-/* ================= CENTER LINKS ================= */
+/* NAV LINKS */
 .nav-links {
   display: flex;
   justify-content: center;
-  gap: 28px;
+  gap: 25px;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  flex: 2;
 }
 
 .nav-links li a {
+  color: white;
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 6px;
-  text-decoration: none;
-  color: white;
   font-size: 15px;
-  font-weight: 500;
   position: relative;
-  padding: 5px 0;
-  white-space: nowrap;
 }
 
-/* underline animation */
+/* underline */
 .nav-links li a::after {
   content: "";
   position: absolute;
-  width: 0%;
+  width: 0;
   height: 2px;
   bottom: -3px;
   left: 0;
-  background: #FFD700;
+  background: gold;
   transition: 0.3s;
 }
 
@@ -100,108 +91,103 @@
   width: 100%;
 }
 
-/* ================= RIGHT BUTTON ================= */
+/* APPLY BUTTON */
 .nav-btn {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  flex: 0; /* 🔥 prevents stretch */
 }
 
 .nav-btn a {
+  display: inline-block;
   background: white;
   color: #3F3D8F;
-  padding: 7px 16px;
+  padding: 6px 14px;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 14px;
   text-decoration: none;
-  transition: 0.3s;
   white-space: nowrap;
+  transition: 0.3s;
 }
 
 .nav-btn a:hover {
-  background: #FFD700;
+  background: gold;
   color: black;
-  transform: translateY(-1px);
 }
 
-/* ================= HAMBURGER ================= */
+/* HAMBURGER */
 .menu-toggle {
   display: none;
+  font-size: 24px;
+  color: white;
   background: none;
   border: none;
-  color: white;
-  font-size: 24px;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
 }
 
-/* ================= ANIMATION ================= */
+/* ANIMATION */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media (max-width: 768px) {
+
   .nav-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
-    gap: 0;
   }
 
-  /* show hamburger */
   .menu-toggle {
-    display: inline-flex;
+    display: block;
   }
 
-  /* adjust logo size when scrolled */
-  .nav-brand img {
-    height: 28px;
+  .nav-left {
+    flex: 1;
+    justify-content: center;
   }
+
+  .nav-brand img {
+    height: 26px;
+  }
+
   .nav-brand span {
     font-size: 12px;
   }
 
-  /* mobile menu: absolute below navbar */
+  .nav-btn {
+    margin-left: auto;
+  }
+
+  .nav-btn a {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  /* MOBILE MENU */
   .nav-links {
     position: absolute;
-    top: 100%; /* sticks right under navbar */
+    top: 100%;
     left: 0;
     width: 100%;
     background: #3F3D8F;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
     padding: 20px 0;
+    gap: 15px;
     display: none;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    z-index: 999;
   }
 
   .nav-links.active {
     display: flex;
-  }
-
-  .nav-links li a {
-    font-size: 16px;
-  }
-
-  /* hide desktop button */
-  .nav-btn {
-    display: none;
-  }
-
-  /* ensure left section uses available space */
-  .nav-left {
-    flex: 1;
   }
 }
