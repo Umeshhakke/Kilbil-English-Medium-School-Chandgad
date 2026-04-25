@@ -1,3 +1,67 @@
+/* Google Font import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap');
+
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* center content with max width */
+.header-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 20px;
+  justify-content: center;
+}
+
+/* logo */
+.logo-section img {
+  height: 65px;
+}
+
+/* text block */
+.school-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* trust name */
+.school-info h4 {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #6c757d;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* main school name */
+.school-info h1 {
+  margin: 2px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-family: 'Playfair Display', serif; /* 👈 premium font */
+}
+
+/* subtitle */
+.school-info h2 {
+  margin: 2px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* small info */
+.school-info p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #888;
+  font-family: 'Poppins', sans-serif;
+}
 /* Keep your existing .header-container styles, just add position: relative */
 .header-container {
   position: relative;  /* 👈 Add this line */
