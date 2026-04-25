@@ -1,64 +1,47 @@
-/* Google Font import */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap');
-
-.header {
-  background: white;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* center content with max width */
+/* Keep your existing .header-container styles, just add position: relative */
 .header-container {
-  max-width: 1100px;
-  margin: auto;
+  position: relative;  /* 👈 Add this line */
+  /* keep everything else: max-width, margin, display, gap, padding, justify-content: center */
+}
+
+/* Login links positioned at top-right corner */
+.login-links {
+  position: absolute;
+  top: 15px;
+  right: 20px;
   display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 15px 20px;
-  justify-content: center;
-}
-
-/* logo */
-.logo-section img {
-  height: 65px;
-}
-
-/* text block */
-.school-info {
-  display: flex;
-  flex-direction: column;
-}
-
-/* trust name */
-.school-info h4 {
-  margin: 0;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: #6c757d;
+  gap: 8px;
+  font-size: 0.85rem;
+  background: rgba(248, 249, 250, 0.9);
+  padding: 5px 12px;
+  border-radius: 20px;
   font-family: 'Poppins', sans-serif;
+  z-index: 10;
 }
 
-/* main school name */
-.school-info h1 {
-  margin: 2px 0;
-  font-size: 24px;
-  font-weight: 600;
+.login-links a {
+  text-decoration: none;
   color: #2c3e50;
-  font-family: 'Playfair Display', serif; /* 👈 premium font */
-}
-
-/* subtitle */
-.school-info h2 {
-  margin: 2px 0;
-  font-size: 15px;
   font-weight: 500;
-  color: #444;
-  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s;
 }
 
-/* small info */
-.school-info p {
-  margin-top: 4px;
-  font-size: 12px;
-  color: #888;
-  font-family: 'Poppins', sans-serif;
+.login-links a:hover {
+  color: #e67e22;
+  text-decoration: underline;
+}
+
+.separator {
+  color: #ccc;
+  margin: 0 2px;
+}
+
+/* On small screens, adjust position so it doesn't overlap logo */
+@media (max-width: 600px) {
+  .login-links {
+    top: 5px;
+    right: 10px;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
 }
