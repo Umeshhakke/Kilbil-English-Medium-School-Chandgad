@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./StaffForm.css";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const StaffForm = ({ staff, onClose, onSuccess, token }) => {
   const [formData, setFormData] = useState({

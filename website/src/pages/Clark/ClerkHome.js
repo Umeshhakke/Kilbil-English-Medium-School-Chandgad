@@ -12,7 +12,7 @@ import {
   FaIdCard,
 } from "react-icons/fa";
 
-const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE = process.env.REACT_APP_API_URL ;
 
 const ClerkHome = () => {
   const [stats, setStats] = useState({

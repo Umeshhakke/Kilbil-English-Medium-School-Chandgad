@@ -141,7 +141,7 @@ import Footer from "../components/Footer";
 import imagelogo from "../images/p1.jpg";
 import Header from "../components/Header";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_URL ;
 
 const Faculty = () => {
   const [scrolled, setScrolled] = useState(false);

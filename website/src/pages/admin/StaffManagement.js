@@ -5,7 +5,7 @@ import StaffForm from "./StaffForm";
 import "./StaffManagement.css";
 import imagelogo from "../../images/p1.jpg";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const StaffManagement = () => {
   const [staff, setStaff] = useState([]);
