@@ -13,6 +13,7 @@
   background: #3F3D8F;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: 0.3s ease;
+  position: relative; /* needed for absolute mobile menu */
 }
 
 .navbar.scrolled {
@@ -22,13 +23,13 @@
 
 /* ================= CONTAINER ================= */
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
+  max-width: 95%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left, center, right */
   align-items: center;
-  justify-content: space-between;
   gap: 20px;
-  padding: 12px 24px;
+  padding: 10px 20px;
 }
 
 /* ================= LEFT SECTION ================= */
@@ -36,10 +37,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
 }
 
-/* Logo visible only when scrolled (desktop) */
+/* logo: hidden by default, appears on scroll */
 .nav-brand {
   display: none;
   align-items: center;
@@ -53,14 +53,12 @@
 
 .nav-brand img {
   height: 35px;
-  width: auto;
 }
 
 .nav-brand span {
   color: white;
   font-size: 14px;
   font-weight: 600;
-  white-space: nowrap;
 }
 
 /* ================= CENTER LINKS ================= */
@@ -71,7 +69,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
 }
 
 .nav-links li a {
@@ -82,76 +79,62 @@
   color: white;
   font-size: 15px;
   font-weight: 500;
-  padding: 8px 0;
+  position: relative;
+  padding: 5px 0;
   white-space: nowrap;
-  transition: color 0.2s;
 }
 
-/* Underline animation */
+/* underline animation */
 .nav-links li a::after {
   content: "";
   position: absolute;
   width: 0%;
   height: 2px;
-  bottom: 0;
+  bottom: -3px;
   left: 0;
   background: #FFD700;
   transition: 0.3s;
-}
-
-.nav-links li a {
-  position: relative;
 }
 
 .nav-links li a:hover::after {
   width: 100%;
 }
 
-.nav-links li a:hover {
-  color: #FFD700;
-}
-
 /* ================= RIGHT BUTTON ================= */
 .nav-btn {
-  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .nav-btn a {
   background: white;
   color: #3F3D8F;
-  padding: 8px 18px;
-  border-radius: 30px;
+  padding: 7px 16px;
+  border-radius: 6px;
   font-weight: 600;
   font-size: 14px;
   text-decoration: none;
   transition: 0.3s;
-  display: inline-block;
   white-space: nowrap;
 }
 
 .nav-btn a:hover {
   background: #FFD700;
   color: black;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
 }
 
-/* ================= HAMBURGER (hidden on desktop) ================= */
+/* ================= HAMBURGER ================= */
 .menu-toggle {
   display: none;
   background: none;
   border: none;
   color: white;
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
-  padding: 8px;
-  line-height: 1;
-  border-radius: 4px;
-  transition: background 0.2s;
-}
-
-.menu-toggle:hover {
-  background: rgba(255,255,255,0.1);
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
 }
 
 /* ================= ANIMATION ================= */
@@ -166,137 +149,59 @@
   }
 }
 
-/* ================= TABLET (768px - 1024px) ================= */
-@media (max-width: 1024px) {
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
   .nav-container {
-    padding: 10px 20px;
-    gap: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    gap: 0;
   }
-  
-  .nav-links {
-    gap: 18px;
+
+  /* show hamburger */
+  .menu-toggle {
+    display: inline-flex;
   }
-  
-  .nav-links li a {
-    font-size: 13px;
+
+  /* adjust logo size when scrolled */
+  .nav-brand img {
+    height: 28px;
   }
-  
   .nav-brand span {
     font-size: 12px;
   }
-}
 
-/* ================= MOBILE (up to 768px) ================= */
-@media (max-width: 768px) {
-  .nav-container {
-    padding: 10px 16px;
-    position: relative; /* ensures mobile menu positions relative to navbar */
-  }
-
-  /* Show hamburger */
-  .menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    order: 2;
-  }
-
-  /* Left section: logo/icon */
-  .nav-left {
-    order: 1;
-    flex: 1;
-  }
-
-  /* Right button hidden on mobile (optional) */
-  .nav-btn {
-    display: none;
-  }
-
-  /* Mobile menu: absolute below navbar */
+  /* mobile menu: absolute below navbar */
   .nav-links {
     position: absolute;
-    top: 100%;
+    top: 100%; /* sticks right under navbar */
     left: 0;
-    right: 0;
-    background: #2f2d75;
+    width: 100%;
+    background: #3F3D8F;
     flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 0;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
     display: none;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    z-index: 1001;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 999;
   }
 
   .nav-links.active {
     display: flex;
   }
 
-  .nav-links li {
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-
   .nav-links li a {
-    padding: 14px 20px;
     font-size: 16px;
-    justify-content: center;
-    white-space: normal;
   }
 
-  .nav-links li a::after {
+  /* hide desktop button */
+  .nav-btn {
     display: none;
   }
 
-  .nav-links li a:hover {
-    background: rgba(255,255,255,0.1);
-    color: #FFD700;
-  }
-
-  /* Adjust scrolled brand on mobile */
-  .navbar.scrolled .nav-brand {
-    display: flex;
-  }
-
-  .nav-brand img {
-    height: 28px;
-  }
-
-  .nav-brand span {
-    font-size: 11px;
-    white-space: normal;
-    line-height: 1.2;
-  }
-}
-
-/* ================= SMALL MOBILE (under 480px) ================= */
-@media (max-width: 480px) {
-  .nav-container {
-    padding: 8px 12px;
-  }
-
-  .nav-brand span {
-    display: none; /* hide text on very small screens, keep logo */
-  }
-
-  .nav-brand img {
-    height: 24px;
-  }
-
-  .menu-toggle {
-    font-size: 24px;
-    padding: 6px;
-  }
-
-  .nav-links li a {
-    font-size: 14px;
-    padding: 12px 16px;
+  /* ensure left section uses available space */
+  .nav-left {
+    flex: 1;
   }
 }
