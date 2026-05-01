@@ -60,7 +60,7 @@ export default function Navbar() {
 
         {/* RIGHT: Apply Button */}
         <div className="nav-btn">
-          <Link to="/admin/login">Apply Now</Link>
+          <Link to="/admission">Apply Now</Link>
         </div>
 
       </div>
