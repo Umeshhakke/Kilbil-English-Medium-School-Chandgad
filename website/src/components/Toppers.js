@@ -12,7 +12,7 @@ export default function Toppers() {
     axios.get(API_BASE_URL + "/api/toppers/public?year=" + currentYear)
       .then(res => setToppers(res.data))
       .catch(console.error);
-  }, [currentYear]);
+  }, [currentYear,, API_BASE_URL]);
 
   // Group by class
   const grouped = toppers.reduce((acc, t) => {

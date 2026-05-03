@@ -20,21 +20,22 @@ const Rankers = () => {
   const [preview, setPreview] = useState("");
   const token = localStorage.getItem("adminToken");
 
-  const fetchToppers = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/api/toppers`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setToppers(res.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  
   useEffect(() => {
-     fetchToppers(); }, [fetchToppers]);
+    const fetchToppers = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/toppers`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setToppers(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchToppers();
+  }, [API_BASE, token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
