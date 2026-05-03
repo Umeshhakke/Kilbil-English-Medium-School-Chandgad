@@ -3,7 +3,7 @@ import { NavLink, useNavigate, Outlet } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 
 // Import icons from react-icons
-import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope, FaChalkboardTeacher, FaMoneyBillWave } from "react-icons/fa";
+import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope, FaChalkboardTeacher, FaMoneyBillWave,FaTrophy } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
