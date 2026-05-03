@@ -3,7 +3,7 @@ import { NavLink, useNavigate, Outlet } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 
 // Import icons from react-icons
-import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope, FaChalkboardTeacher, FaMoneyBillWave,FaTrophy } from "react-icons/fa";
+import { FaUsers, FaImages, FaSchool, FaCalendarAlt, FaEnvelope, FaChalkboardTeacher, FaMoneyBillWave, FaTrophy } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -52,6 +52,10 @@ const AdminDashboard = () => {
           <NavLink to="fee-structure" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
             <span className="nav-icon"><FaMoneyBillWave /></span>
             <span>Fee Structure</span>
+          </NavLink>
+          <NavLink to="hero-slider" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
+            <span className="nav-icon"><FaImages /></span>
+            <span>Hero Slider</span>
           </NavLink>
         </nav>
         <button onClick={handleLogout} className="logout-btn">

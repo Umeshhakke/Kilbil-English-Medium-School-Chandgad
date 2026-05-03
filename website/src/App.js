@@ -35,6 +35,8 @@ import Donations from './pages/Clark/Donations';
 import ClerkHome from './pages/Clark/ClerkHome';
 import FeeStructure from './pages/admin/FeeStructure';
 import Rankers from './pages/admin/Rankers';
+import HeroSliderManager from "./pages/admin/HeroSliderManager";
+
 
 
 function App() {
@@ -69,6 +71,8 @@ function App() {
           <Route path="teachers" element={<TeacherAssignment />} />
           <Route path="fee-structure" element={<FeeStructure />} />
           <Route path="rankers" element={<Rankers />} />
+        <Route path="hero-slider" element={<HeroSliderManager />} />
+
 
         </Route>
 

@@ -1,55 +1,72 @@
 import "./Hero.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
-import img1 from "../assets/hero.jpg";
-import img2 from "../assets/hero.jpg";
-import img3 from "../assets/hero.jpg";
-import img4 from "../assets/hero.jpg";
-import img5 from "../assets/hero.jpg";
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 export default function Hero() {
-
-  const images = [img1, img2, img3, img4, img5];
+  const [slides, setSlides] = useState([]);
   const [current, setCurrent] = useState(0);
-  
+  const videoRef = useRef(null);
+  const timerRef = useRef(null);
 
-  // auto slide
-const totalImages = images.length;
+  useEffect(() => {
+    axios.get(`${API_BASE}/api/public/hero-slider`)
+      .then(res => setSlides(res.data))
+      .catch(err => console.error("Failed to fetch hero slides:", err));
+  }, []);
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCurrent((prev) => (prev + 1) % totalImages);
-  }, 3000);
+  useEffect(() => {
+    if (slides.length === 0) return;
+    const currentSlide = slides[current];
 
-  return () => clearInterval(interval);
-}, [totalImages]);
+    if (timerRef.current) clearTimeout(timerRef.current);
 
-  // controls
-  const prevSlide = () => {
-    setCurrent(current === 0 ? images.length - 1 : current - 1);
-  };
+    if (currentSlide?.mediaType === "video") {
+      const video = videoRef.current;
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        video.onended = () => setCurrent(prev => (prev + 1) % slides.length);
+      }
+    } else {
+      timerRef.current = setTimeout(() => {
+        setCurrent(prev => (prev + 1) % slides.length);
+      }, 3000);
+    }
 
-  const nextSlide = () => {
-    setCurrent((current + 1) % images.length);
-  };
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [current, slides]);
+
+  const prevSlide = () => setCurrent(prev => (prev - 1 + slides.length) % slides.length);
+  const nextSlide = () => setCurrent(prev => (prev + 1) % slides.length);
+
+  if (slides.length === 0) return null;
 
   return (
     <section className="hero">
-
-      {/* IMAGES */}
-      {images.map((img, index) => (
-        <img
-          key={index}
-          src={img}
-          alt="school"
-          className={`hero-img ${index === current ? "active" : ""}`}
-        />
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`hero-slide ${index === current ? "active" : ""}`}
+        >
+          {slide.mediaType === "video" ? (
+            <video
+              ref={index === current ? videoRef : null}
+              src={slide.url}
+              muted
+              playsInline
+              className="hero-video"
+            />
+          ) : (
+            <img src={slide.url} alt="hero" className="hero-img" />
+          )}
+        </div>
       ))}
-
-      {/* BUTTONS */}
       <button className="slide-btn left" onClick={prevSlide}>❮</button>
       <button className="slide-btn right" onClick={nextSlide}>❯</button>
-
     </section>
   );
 }
