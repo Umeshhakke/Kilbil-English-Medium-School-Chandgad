@@ -4,15 +4,27 @@ import axios from "axios";
 
 export default function Toppers() {
   const [toppers, setToppers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const currentYear = new Date().getFullYear().toString();
-  const API_BASE_URL = process.env.REACT_APP_API_URL ;
-
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    axios.get(API_BASE_URL + "/api/toppers/public?year=" + currentYear)
-      .then(res => setToppers(res.data))
-      .catch(console.error);
-  }, [currentYear,, API_BASE_URL]);
+    if (!API_BASE_URL) {
+      console.error("API_BASE_URL is not defined");
+      setLoading(false);
+      return;
+    }
+    axios
+      .get(API_BASE_URL + "/api/toppers/public?year=" + currentYear)
+      .then((res) => {
+        setToppers(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [currentYear, API_BASE_URL]); // ✅ correct dependency array
 
   // Group by class
   const grouped = toppers.reduce((acc, t) => {
@@ -23,22 +35,30 @@ export default function Toppers() {
 
   const classOrder = ["Class 10", "Class 9"];
 
-  if (toppers.length === 0) return null; // or loading
+  if (loading) return <div className="toppers-loading">Loading toppers...</div>;
+  if (toppers.length === 0) return null;
 
   return (
     <section className="toppers">
       <h2>🏆 Our Toppers</h2>
 
-      {classOrder.map(cls => {
+      {classOrder.map((cls) => {
         const students = grouped[cls] || [];
         if (students.length === 0) return null;
-        const sorted = students.sort((a,b) => (a.rank === "1st" ? -1 : a.rank === "2nd" ? 0 : 1));
+        const sorted = students.sort((a, b) =>
+          a.rank === "1st" ? -1 : a.rank === "2nd" ? 0 : 1
+        );
         return (
           <div className="toppers-section" key={cls}>
             <h3>{cls} Toppers</h3>
             <div className="toppers-container">
-              {sorted.map((s, idx) => {
-                const className = s.rank === "1st" ? "gold" : s.rank === "2nd" ? "silver" : "bronze";
+              {sorted.map((s) => {
+                const className =
+                  s.rank === "1st"
+                    ? "gold"
+                    : s.rank === "2nd"
+                    ? "silver"
+                    : "bronze";
                 return (
                   <div className={`topper-card ${className}`} key={s.id}>
                     <div className="rank-badge">{s.rank}</div>
