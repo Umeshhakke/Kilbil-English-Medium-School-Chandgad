@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./Rankers.css";
 
@@ -20,22 +20,24 @@ const Rankers = () => {
   const [preview, setPreview] = useState("");
   const token = localStorage.getItem("adminToken");
 
-  useEffect(() => {
-    const fetchToppers = async () => {
-      try {
-        const res = await axios.get(`${API_BASE}/api/toppers`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setToppers(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // ✅ Define fetchToppers with useCallback so it can be reused
+  const fetchToppers = useCallback(async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/api/toppers`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setToppers(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [API_BASE, token]); // dependencies: API_BASE and token
 
+  // ✅ useEffect now depends on fetchToppers (stable due to useCallback)
+  useEffect(() => {
     fetchToppers();
-  }, [API_BASE, token]);
+  }, [fetchToppers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,7 +80,7 @@ const Rankers = () => {
       }
       setShowForm(false);
       setEditing(null);
-      fetchToppers();
+      fetchToppers(); // ✅ now works – fetchToppers is defined in component scope
     } catch (err) {
       alert(err.response?.data?.error || "Operation failed");
     }
@@ -104,7 +106,7 @@ const Rankers = () => {
       await axios.delete(`${API_BASE}/api/toppers/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      fetchToppers();
+      fetchToppers(); // ✅ re‑fetch after deletion
     } catch (err) {
       alert("Delete failed");
     }
