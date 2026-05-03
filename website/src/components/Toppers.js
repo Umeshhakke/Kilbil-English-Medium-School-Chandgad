@@ -5,12 +5,14 @@ import axios from "axios";
 export default function Toppers() {
   const [toppers, setToppers] = useState([]);
   const currentYear = new Date().getFullYear().toString();
+  const API_BASE_URL = process.env.REACT_APP_API_URL ;
+
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/toppers/public?year=" + currentYear)
+    axios.get(API_BASE_URL + "/api/toppers/public?year=" + currentYear)
       .then(res => setToppers(res.data))
       .catch(console.error);
-  }, []);
+  }, [currentYear]);
 
   // Group by class
   const grouped = toppers.reduce((acc, t) => {

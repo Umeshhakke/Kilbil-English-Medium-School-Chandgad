@@ -32,8 +32,9 @@ const Rankers = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => { fetchToppers(); }, []);
+  
+  useEffect(() => {
+     fetchToppers(); }, [fetchToppers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
