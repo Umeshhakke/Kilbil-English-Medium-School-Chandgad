@@ -1,87 +1,57 @@
 import "./Toppers.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Toppers() {
+  const [toppers, setToppers] = useState([]);
+  const currentYear = new Date().getFullYear().toString();
 
-  const class9 = [
-    {
-      name: "Rahul Patil",
-      rank: "1st",
-      marks: "92%",
-      img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      name: "Sneha Joshi",
-      rank: "2nd",
-      marks: "89%",
-      img: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6"
-    },
-    {
-      name: "Amit Kale",
-      rank: "3rd",
-      marks: "87%",
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
-    }
-  ];
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/toppers/public?year=" + currentYear)
+      .then(res => setToppers(res.data))
+      .catch(console.error);
+  }, []);
 
-  const class10 = [
-    {
-      name: "Priya Sharma",
-      rank: "1st",
-      marks: "95%",
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956"
-    },
-    {
-      name: "Rohit Singh",
-      rank: "2nd",
-      marks: "91%",
-      img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
-    },
-    {
-      name: "Neha Verma",
-      rank: "3rd",
-      marks: "88%",
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
-    }
-  ];
+  // Group by class
+  const grouped = toppers.reduce((acc, t) => {
+    if (!acc[t.class]) acc[t.class] = [];
+    acc[t.class].push(t);
+    return acc;
+  }, {});
 
-  const renderSection = (title, data) => {
-    const order = [1, 0, 2]; // center gold
+  const classOrder = ["Class 10", "Class 9"];
 
-    return (
-      <div className="toppers-section">
-        <h3>{title}</h3>
-
-        <div className="toppers-container">
-          {order.map((i, idx) => {
-            const student = data[i];
-
-            const className =
-              i === 0 ? "gold" : i === 1 ? "silver" : "bronze";
-
-            return (
-              <div className={`topper-card ${className}`} key={idx}>
-                <div className="rank-badge">{student.rank}</div>
-
-                <img src={student.img} alt={student.name} />
-
-                <div className="topper-info">
-                  <h4>{student.name}</h4>
-                  <p>{student.marks}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+  if (toppers.length === 0) return null; // or loading
 
   return (
     <section className="toppers">
       <h2>🏆 Our Toppers</h2>
 
-      {renderSection("Class 10 Toppers", class10)}
-      {renderSection("Class 9 Toppers", class9)}
+      {classOrder.map(cls => {
+        const students = grouped[cls] || [];
+        if (students.length === 0) return null;
+        const sorted = students.sort((a,b) => (a.rank === "1st" ? -1 : a.rank === "2nd" ? 0 : 1));
+        return (
+          <div className="toppers-section" key={cls}>
+            <h3>{cls} Toppers</h3>
+            <div className="toppers-container">
+              {sorted.map((s, idx) => {
+                const className = s.rank === "1st" ? "gold" : s.rank === "2nd" ? "silver" : "bronze";
+                return (
+                  <div className={`topper-card ${className}`} key={s.id}>
+                    <div className="rank-badge">{s.rank}</div>
+                    <img src={s.image || "/default-avatar.png"} alt={s.name} />
+                    <div className="topper-info">
+                      <h4>{s.name}</h4>
+                      <p>{s.marks}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </section>
   );
 }
