@@ -34,6 +34,8 @@ import FeeCollection from './pages/Clark/FeeCollection';
 import Donations from './pages/Clark/Donations';
 import ClerkHome from './pages/Clark/ClerkHome';
 import FeeStructure from './pages/admin/FeeStructure';
+import Rankers from './pages/admin/Rankers';
+
 
 function App() {
   return (
@@ -66,6 +68,8 @@ function App() {
           <Route path="messages" element={<EnquiryManagement />} />
           <Route path="teachers" element={<TeacherAssignment />} />
           <Route path="fee-structure" element={<FeeStructure />} />
+          <Route path="rankers" element={<Rankers />} />
+
         </Route>
 
         {/* Teacher Dashboard */}

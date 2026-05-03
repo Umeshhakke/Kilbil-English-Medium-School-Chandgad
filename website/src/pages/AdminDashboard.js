@@ -45,6 +45,10 @@ const AdminDashboard = () => {
             <span className="nav-icon"><FaChalkboardTeacher /></span>
             <span>Teachers</span>
           </NavLink>
+          <NavLink to="rankers" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
+            <span className="nav-icon"><FaTrophy /></span>
+            <span>Rankers</span>
+          </NavLink>
           <NavLink to="fee-structure" className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}>
             <span className="nav-icon"><FaMoneyBillWave /></span>
             <span>Fee Structure</span>
